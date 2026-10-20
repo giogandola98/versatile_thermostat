@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - repro-2135
   pull_request:
 
 jobs:
@@ -34,14 +35,7 @@ jobs:
 
       - name: Run Tests
         run: |
-          pytest \
-            -qq \
-            --timeout=9 \
-            --durations=10 \
-            -n auto \
-            -o console_output_style=count \
-            -p no:sugar \
-            tests
+          pytest -v --timeout=30 -p no:sugar -o log_cli=true --log-cli-level=INFO tests/test_auto_start_stop_issue_2135.py
 
       - name: Coverage
         if: false
